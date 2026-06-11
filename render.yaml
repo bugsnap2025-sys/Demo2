@@ -1,0 +1,17 @@
+# Render Blueprint — Render reads this automatically when you create a Blueprint.
+# It builds the front end, starts the server, and asks you for the Jira secrets.
+services:
+  - type: web
+    name: oppex-jira
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: JIRA_CLIENT_ID
+        sync: false          # you paste this in Render (from Atlassian)
+      - key: JIRA_CLIENT_SECRET
+        sync: false          # you paste this in Render (from Atlassian) — secret!
+      - key: APP_BASE_URL
+        sync: false          # you paste your Render URL here after first deploy
